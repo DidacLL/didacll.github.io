@@ -2,6 +2,10 @@ name: Deploy AgenticCareerBoost
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [agenticcareerboost-deploy]
+  schedule:
+    - cron: "17 5 * * *"
   push:
     branches: [main]
 
