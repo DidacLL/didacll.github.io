@@ -35,6 +35,54 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Compile public report PDFs
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: source/agents/reports/tex
+          root_file: |
+            sprints/*.tex
+            guides/*.tex
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Publish public report PDFs into site artifact
+        run: python3 source/agents/reports/tex/tools/publish-public-reports.py
+
+      - name: Render public cover-letter sources
+        run: python3 source/agents/cv/tools/render-cover-letter.py --all
+
+      - name: Resolve career artifact build inputs
+        id: career
+        run: |
+          cd source
+          python3 agents/cv/tools/artifact_manifest.py validate
+          {
+            echo 'root_files<<EOF'
+            python3 agents/cv/tools/artifact_manifest.py roots
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Compile CV and cover-letter PDFs
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: source/agents/cv
+          root_file: ${{ steps.career.outputs.root_files }}
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Publish generated career PDFs into site artifact
+        run: |
+          cd source
+          python3 agents/cv/tools/artifact_manifest.py publish
+
+      - name: Generate site status data
+        run: |
+          cd source
+          python3 agents/tools/export_status.py
+
+      - name: Validate static site
+        run: |
+          cd source
+          python3 agents/tools/validate_static_site.py
+
       - name: Prepare artifact
         run: touch source/site/.nojekyll
 
