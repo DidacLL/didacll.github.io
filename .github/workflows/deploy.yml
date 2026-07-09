@@ -59,9 +59,6 @@ jobs:
               print(f'published {target / pdf.name}')
           PY
 
-      - name: Render public cover-letter sources
-        run: python3 source/agents/cv/tools/render-cover-letter.py --all
-
       - name: Resolve career artifact build inputs
         id: career
         run: |
@@ -73,7 +70,7 @@ jobs:
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
-      - name: Compile CV and cover-letter PDFs
+      - name: Compile public career PDFs
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: source/agents/cv
