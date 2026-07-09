@@ -44,20 +44,8 @@ jobs:
             guides/*.tex
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
 
-      - name: Publish public report PDFs into site artifact
-        run: |
-          python3 - <<'PY'
-          import shutil
-          from pathlib import Path
-          source = Path('source/agents/reports/tex/build')
-          target = Path('source/site/files/reports')
-          target.mkdir(parents=True, exist_ok=True)
-          for pdf in sorted(source.glob('*.pdf')):
-              if pdf.name == 'smoke.pdf' or pdf.name.startswith('candidaturas_'):
-                  continue
-              shutil.copy2(pdf, target / pdf.name)
-              print(f'published {target / pdf.name}')
-          PY
+      - name: Publish linked public report PDFs into site artifact
+        run: python3 source/agents/reports/tex/tools/publish-public-reports.py
 
       - name: Resolve career artifact build inputs
         id: career
