@@ -1,7 +1,9 @@
 # didacll.github.io
 
-Root GitHub Pages deployment for `https://didacll.github.io/`.
+Root GitHub Pages deployment adapter for `https://didacll.github.io/`.
 
-This repository does **not** duplicate the website source. Its GitHub Actions workflow checks out `DidacLL/AgenticCareerBoost` and publishes the `site/` directory as the root Pages artifact.
+This repository does **not** contain or duplicate the portfolio source. Its workflow checks out [`DidacLL/AgenticCareerBoost`](https://github.com/DidacLL/AgenticCareerBoost), compiles the public CV from its canonical LaTeX source, builds the Astro portfolio, and publishes `site/dist` as the root GitHub Pages artifact.
+
+The root deployment is the indexable canonical site. The project-level Pages build in AgenticCareerBoost is a non-indexable mirror used for source-project publication and verification.
 
 Source of truth: [`DidacLL/AgenticCareerBoost`](https://github.com/DidacLL/AgenticCareerBoost).
