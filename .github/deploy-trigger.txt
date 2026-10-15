@@ -3,3 +3,7 @@ Manual mirror deployment trigger.
 Requested after AgenticCareerBoost PR #67 merge.
 Trigger time: 2026-07-09T09:00:00+02:00
 Source merge: DidacLL/AgenticCareerBoost@d0c0a9e6f15744f53e059bbb2f02d36fdf3a6eb5
+
+Requested after AgenticCareerBoost PR #97 merge.
+Trigger time: 2026-10-15T15:06:43.869Z
+Source merge: DidacLL/AgenticCareerBoost@e77616d328b20c269ee091aa0bd5a0f045caf896
